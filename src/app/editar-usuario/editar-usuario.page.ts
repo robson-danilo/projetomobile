@@ -27,14 +27,20 @@ export class EditarUsuarioPage implements OnInit {
     toast.present();
   }
 
+  nome = '';
+  email = '';
+  senha = '';
+  numero = '';
+
+
   getUsuario() {
     this.ipeteservices.buscarUsuario(sessionStorage.getItem('id_usuario'))
       .then((response) => {
         console.log(response);
-          this.nome = response.nome;
-          this.email = response.email;
-          this.senha = response.senha;
-          this.numero = response.numero;
+          this.nome = response['nome'];
+          this.email = response['email'];
+          this.senha = response['senha'];
+          this.numero = response['numero'];
       })
       .catch((erro) => {
         console.error(erro);

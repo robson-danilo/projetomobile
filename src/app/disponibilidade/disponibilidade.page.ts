@@ -16,6 +16,13 @@ export class DisponibilidadePage implements OnInit {
 
   photo: SafeResourceUrl;
   imagens: any[] = [];
+  cadastrado = 0;
+  cidade = '';
+  bairro = '';
+  numero = '';
+  opcao = '';
+  valor = ''; 
+  
 
   constructor(private sanitizer: DomSanitizer,
     private ipeteservices: IpetService,
@@ -48,12 +55,12 @@ export class DisponibilidadePage implements OnInit {
         if (response == false) {
           this.cadastrado = 0;
         } else {
-          this.cadastrado = response.cadastrado;
-          this.cidade = response.cidade;
-          this.bairro = response.bairro;
-          this.numero = response.num;
-          this.opcao = response.disponibilidade; 
-          this.valor = response.valor
+          this.cadastrado = response['cadastrado'];
+          this.cidade = response['cidade'];
+          this.bairro = response['bairro'];
+          this.numero = response['num'];
+          this.opcao = response['disponibilidade']; 
+          this.valor = response['valor'];
           //this.inicio();
         }
 

@@ -9,14 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ListarPage implements OnInit {
 
-
   constructor(private ipeteservices: IpetService,
     private toastCtrl: ToastController) {
-      this.getDisponibilidades();
+      var dadosEnviar = { cidade: '', disponibilidade: '' };
+      this.getDisponibilidades(dadosEnviar);
      }
 
   ngOnInit() {
   }
+
+  public resultados;
 
   async alertaDados(mensagem: string) {
     const toast = await this.toastCtrl.create({
@@ -28,14 +30,15 @@ export class ListarPage implements OnInit {
     toast.present();
   }
 
-  getDisponibilidades() {
-    let dadosEnviar = { cidade: '', disponibilidade: '' };
-    console.log(dadosEnviar);    
+  getDisponibilidades(dadosEnviar) {
+    //
+    //console.log(dadosEnviar);    
     this.ipeteservices.buscarDisponibilidadeGeral(dadosEnviar)
       .then((response) => {
         console.log(response);
         if (response != false){
           this.resultados = response;
+          console.log(this.resultados);
         }else {
           let mensagem = 'Nenhum resultado encontrado!';
           this.alertaDados(mensagem);
