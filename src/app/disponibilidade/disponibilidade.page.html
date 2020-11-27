@@ -1,0 +1,66 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Disponibilidade</ion-title>
+    <ion-buttons>
+      <ion-menu-button menu="menu-inicio"></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <form #form="ngForm" (ngSubmit)="adicionarDisponibilidade(form)">
+    <ion-grid>
+      <ion-row color="primary" justify-content-center>
+        <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
+          <div text-center>
+            <h3>Faça seu cadastro</h3>
+          </div>
+          <ion-item>
+            <ion-input name="cidade" type="text" value="{{cidade}}" placeholder="Cidade" ngModel required></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input name="bairro" type="text" [value]="bairro" placeholder="Bairro" ngModel required></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-input name="numero" type="number" [value]="numero" placeholder="Número" ngModel required></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label>Opções</ion-label>
+            <ion-select name="opcao" value="{{opcao}}" okText="Selecionar" cancelTex="Cancelar" ngModel required>              
+              <ion-select-option>HotelZinho</ion-select-option>
+              <ion-select-option>Passear</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-input name="valor" type="number" [value]="valor" placeholder="Valor" ngModel required></ion-input>/Hora
+          </ion-item>
+          <div padding>
+            <ion-button color="success" size="large" type="submit" expand="block">Confirmar
+            </ion-button>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+
+<!-- 
+  <ion-item>
+    <ion-item-sliding>
+      <img style="max-width: 50%;" [src]="photo">
+      <ion-item>
+        
+      </ion-item>
+    </ion-item-sliding>
+
+  </ion-item>
+  
+
+  <ion-fab vertical="bottom" horizontal="center" slot="fixed">
+    <ion-fab-button (click)="takePicture()">
+      <ion-icon name="camera"></ion-icon>
+    </ion-fab-button>
+
+  </ion-fab>
+-->
+</ion-content>

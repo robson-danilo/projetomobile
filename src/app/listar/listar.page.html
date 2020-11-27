@@ -1,0 +1,53 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Listar Ipet</ion-title>
+    <ion-buttons>
+      <ion-menu-button menu="menu-inicio"></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <form #form="ngForm" (ngSubmit)="getDisponibilidadesPesquisa(form)">
+    <ion-grid>
+      <ion-row color="primary" justify-content-center>
+        <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
+          <div text-center>
+            <h3>Listar serviço</h3>
+          </div>
+          <div padding>
+            <ion-item>
+              <ion-input name="cidade" type="text" placeholder="Cidade" ngModel required></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label>Opções</ion-label>
+              <ion-select name="disponibilidade" okText="Selecionar" cancelTex="Cancelar" ngModel required>
+                <ion-select-option>HotelZinho</ion-select-option>
+                <ion-select-option>Passear</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </div>
+          <div padding>
+            <ion-button color="success" size="large" type="submit" expand="block">Pesquisar</ion-button>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+  <ion-item *ngFor="let resultado of resultados">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>{{resultado.nome}}</ion-card-title>
+        <h2>____________________</h2>
+      </ion-card-header>
+      <ion-card-content>
+        <h2>Cidade: {{resultado.cidade}}</h2>
+        <h2>Número: {{resultado.numero}}</h2>
+        <h2>Serviço: {{resultado.disponibilidade}}</h2>
+      </ion-card-content>
+    </ion-card>
+  </ion-item>
+
+
+</ion-content>
