@@ -69,7 +69,6 @@ export class CadastroPage implements OnInit {
 
 
   async add(dados: string) {
-
     this.ipeteservices.verificarEmail(dados)
       .then((response1) => {
         console.log(response1);
@@ -96,10 +95,6 @@ export class CadastroPage implements OnInit {
         var mensagem = 'Operação falhou';
         this.alertaDados(mensagem);
       });
-
-
-
-
   }
 
 

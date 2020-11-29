@@ -59,6 +59,17 @@ export class AppComponent {
     }
   }
 
+  async Contatos(){
+    var mensagem = '';
+    var logado = sessionStorage.getItem('logado');
+    if (logado == 'true'){
+      this.navCtrl.navigateRoot('contatos');
+    }else {
+      mensagem = 'Faça o login ou cadastra-se';
+      this.logout(mensagem);      
+    }
+  }
+
   async Disponibilidade(){
     var mensagem = '';
     var logado = sessionStorage.getItem('logado');

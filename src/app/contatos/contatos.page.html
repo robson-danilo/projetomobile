@@ -1,0 +1,69 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>contatos</ion-title>
+    <ion-buttons>
+      <ion-menu-button menu="menu-inicio"></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-item *ngFor="let contato of contatos">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>{{contato.nome}}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content *ngIf=" contato.nome != 'Sem contatos'">
+        <ion-col *ngIf=" contato.estrelas == null">
+          <ion-icon style="font-size: 20px;" (click)="inserirEstrelas(1, contato.id)" name="star-outline"></ion-icon>
+          <ion-icon style="font-size: 20px;" (click)="inserirEstrelas(2, contato.id)" name="star-outline"></ion-icon>
+          <ion-icon style="font-size: 20px;" (click)="inserirEstrelas(3, contato.id)" name="star-outline"></ion-icon>
+          <ion-icon style="font-size: 20px;" (click)="inserirEstrelas(4, contato.id)" name="star-outline"></ion-icon>
+          <ion-icon style="font-size: 20px;" (click)="inserirEstrelas(5, contato.id)" name="star-outline"></ion-icon>
+        </ion-col>
+        
+        <ion-col *ngIf=" contato.estrelas == 1">
+          <ion-icon style="font-size: 20px;"  name="star"></ion-icon>
+          <ion-icon style="font-size: 20px;" (click)="updateEstrelas(2, contato.id_avaliacao)" name="star-outline"></ion-icon>
+          <ion-icon style="font-size: 20px;" (click)="updateEstrelas(3, contato.id_avaliacao)"name="star-outline"></ion-icon>
+          <ion-icon style="font-size: 20px;" (click)="updateEstrelas(4, contato.id_avaliacao)" name="star-outline"></ion-icon>
+          <ion-icon style="font-size: 20px;" (click)="updateEstrelas(5, contato.id_avaliacao)" name="star-outline"></ion-icon>
+        </ion-col>
+
+        <ion-col *ngIf=" contato.estrelas == 2">
+          <ion-icon style="font-size: 20px;" (click)="updateEstrelas(1, contato.id_avaliacao)" name="star"></ion-icon>
+          <ion-icon style="font-size: 20px;"  name="star"></ion-icon>
+          <ion-icon style="font-size: 20px;" (click)="updateEstrelas(3, contato.id_avaliacao)" name="star-outline"></ion-icon>
+          <ion-icon style="font-size: 20px;" (click)="updateEstrelas(4, contato.id_avaliacao)" name="star-outline"></ion-icon>
+          <ion-icon style="font-size: 20px;" (click)="updateEstrelas(5, contato.id_avaliacao)" name="star-outline"></ion-icon>
+        </ion-col>
+        <ion-col *ngIf=" contato.estrelas == 3">
+          <ion-icon style="font-size: 20px;" (click)="updateEstrelas(1, contato.id_avaliacao)" name="star"></ion-icon>
+          <ion-icon style="font-size: 20px;" (click)="updateEstrelas(2, contato.id_avaliacao)" name="star"></ion-icon>
+          <ion-icon style="font-size: 20px;" name="star"></ion-icon>
+          <ion-icon style="font-size: 20px;" (click)="updateEstrelas(4, contato.id_avaliacao)" name="star-outline"></ion-icon>
+          <ion-icon style="font-size: 20px;" (click)="updateEstrelas(5, contato.id_avaliacao)" name="star-outline"></ion-icon>
+        </ion-col>
+        <ion-col *ngIf=" contato.estrelas == 4">
+          <ion-icon style="font-size: 20px;" (click)="updateEstrelas(1, contato.id_avaliacao)" name="star"></ion-icon>
+          <ion-icon style="font-size: 20px;" (click)="updateEstrelas(2, contato.id_avaliacao)" name="star"></ion-icon>
+          <ion-icon style="font-size: 20px;" (click)="updateEstrelas(3, contato.id_avaliacao)" name="star"></ion-icon>
+          <ion-icon style="font-size: 20px;" name="star"></ion-icon>
+          <ion-icon style="font-size: 20px;" (click)="updateEstrelas(5, contato.id_avaliacao)" name="star-outline"></ion-icon>
+        </ion-col>
+        <ion-col *ngIf=" contato.estrelas == 5">
+          <ion-icon style="font-size: 20px;" (click)="updateEstrelas(1, contato.id_avaliacao)" name="star"></ion-icon>
+          <ion-icon style="font-size: 20px;" (click)="updateEstrelas(2, contato.id_avaliacao)" name="star"></ion-icon>
+          <ion-icon style="font-size: 20px;" (click)="updateEstrelas(3, contato.id_avaliacao)" name="star"></ion-icon>
+          <ion-icon style="font-size: 20px;" (click)="updateEstrelas(4, contato.id_avaliacao)" name="star"></ion-icon>
+          <ion-icon style="font-size: 20px;" name="star"></ion-icon>
+        </ion-col><br>
+        
+        <a target="_blank" href="https://web.whatsapp.com/send?phone=5581{{contato.numero}}" ><ion-button color="success">Whatsapp<ion-icon  name="logo-whatsapp"></ion-icon></ion-button></a>
+        <a (click)="enviarMensagem(contato.id,contato.nome)"><ion-button>Mensagem<ion-icon  name="chatbubbles"></ion-icon></ion-button></a>
+      </ion-card-content>
+    </ion-card>
+  </ion-item>
+
+</ion-content>

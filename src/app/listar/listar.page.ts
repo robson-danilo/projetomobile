@@ -1,4 +1,4 @@
-import { ToastController } from '@ionic/angular';
+import { ToastController, NavController } from '@ionic/angular';
 import { IpetService } from './../services/ipet.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -10,7 +10,8 @@ import { Component, OnInit } from '@angular/core';
 export class ListarPage implements OnInit {
 
   constructor(private ipeteservices: IpetService,
-    private toastCtrl: ToastController) {
+    private toastCtrl: ToastController,
+    private navCtrl: NavController) {
       var dadosEnviar = { cidade: '', disponibilidade: '' };
       this.getDisponibilidades(dadosEnviar);
      }
@@ -68,6 +69,12 @@ export class ListarPage implements OnInit {
         console.error(erro);
       });
       
+  }
+
+  enviarMensagem(id_usuario, nome_usuario){
+    sessionStorage.setItem('id_usuario_enviar', id_usuario);
+    sessionStorage.setItem('nome_usuario_enviar', nome_usuario);
+    this.navCtrl.navigateRoot('chat');
   }
 
 }

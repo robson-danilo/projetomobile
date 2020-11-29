@@ -45,7 +45,52 @@
         <h2>Cidade: {{resultado.cidade}}</h2>
         <h2>Número: {{resultado.numero}}</h2>
         <h2>Serviço: {{resultado.disponibilidade}}</h2>
-        <a target="_blank" href="https://web.whatsapp.com/send?phone=5581{{resultado.numero}}" ><ion-button color="success">Whatsapp</ion-button></a>
+        <ion-col *ngIf=" resultado.estrelas == null && resultado.estrelas < 1">
+          <ion-icon style="font-size: 20px;"  name="star-outline"></ion-icon>
+          <ion-icon style="font-size: 20px;"  name="star-outline"></ion-icon>
+          <ion-icon style="font-size: 20px;"  name="star-outline"></ion-icon>
+          <ion-icon style="font-size: 20px;"  name="star-outline"></ion-icon>
+          <ion-icon style="font-size: 20px;"  name="star-outline"></ion-icon>
+        </ion-col>
+        
+        <ion-col *ngIf=" resultado.estrelas >= 1 && resultado.estrelas < 2">
+          <ion-icon style="font-size: 20px;"  name="star"></ion-icon>
+          <ion-icon style="font-size: 20px;" name="star-outline"></ion-icon>
+          <ion-icon style="font-size: 20px;" name="star-outline"></ion-icon>
+          <ion-icon style="font-size: 20px;"  name="star-outline"></ion-icon>
+          <ion-icon style="font-size: 20px;"  name="star-outline"></ion-icon>
+        </ion-col>
+
+        <ion-col *ngIf=" resultado.estrelas >= 2 && resultado.estrelas < 3">
+          <ion-icon style="font-size: 20px;"  name="star"></ion-icon>
+          <ion-icon style="font-size: 20px;"  name="star"></ion-icon>
+          <ion-icon style="font-size: 20px;"  name="star-outline"></ion-icon>
+          <ion-icon style="font-size: 20px;"  name="star-outline"></ion-icon>
+          <ion-icon style="font-size: 20px;"  name="star-outline"></ion-icon>
+        </ion-col>
+        <ion-col *ngIf=" resultado.estrelas >= 3 && resultado.estrelas < 4">
+          <ion-icon style="font-size: 20px;"  name="star"></ion-icon>
+          <ion-icon style="font-size: 20px;"  name="star"></ion-icon>
+          <ion-icon style="font-size: 20px;" name="star"></ion-icon>
+          <ion-icon style="font-size: 20px;"  name="star-outline"></ion-icon>
+          <ion-icon style="font-size: 20px;"  name="star-outline"></ion-icon>
+        </ion-col>
+        <ion-col *ngIf=" resultado.estrelas >= 4 && resultado.estrelas < 5">
+          <ion-icon style="font-size: 20px;"  name="star"></ion-icon>
+          <ion-icon style="font-size: 20px;"  name="star"></ion-icon>
+          <ion-icon style="font-size: 20px;"  name="star"></ion-icon>
+          <ion-icon style="font-size: 20px;" name="star"></ion-icon>
+          <ion-icon style="font-size: 20px;"  name="star-outline"></ion-icon>
+        </ion-col>
+        <ion-col *ngIf=" resultado.estrelas == 5">
+          <ion-icon style="font-size: 20px;"  name="star"></ion-icon>
+          <ion-icon style="font-size: 20px;"  name="star"></ion-icon>
+          <ion-icon style="font-size: 20px;"  name="star"></ion-icon>
+          <ion-icon style="font-size: 20px;"  name="star"></ion-icon>
+          <ion-icon style="font-size: 20px;" name="star"></ion-icon>
+        </ion-col><br>
+        <a target="_blank" href="https://web.whatsapp.com/send?phone=5581{{resultado.numero}}" ><ion-button color="success">Whatsapp<ion-icon  name="logo-whatsapp"></ion-icon></ion-button></a>
+        <a (click)="enviarMensagem(resultado.id_usuario,resultado.nome)"><ion-button>Mensagem<ion-icon  name="chatbubbles"></ion-icon></ion-button></a>
       </ion-card-content>
     </ion-card>
   </ion-item>

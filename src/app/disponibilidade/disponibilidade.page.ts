@@ -4,6 +4,14 @@ import { Component, OnInit } from '@angular/core';
 import { Plugins, CameraResultType, CameraSource } from '@capacitor/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
+/*
+export interface ApiImage {
+  _id: string;
+  name: string;
+  createAt: Date;
+  url: string;
+}
+*/
 @Component({
   selector: 'app-disponibilidade',
   templateUrl: './disponibilidade.page.html',
@@ -21,8 +29,8 @@ export class DisponibilidadePage implements OnInit {
   bairro = '';
   numero = '';
   opcao = '';
-  valor = ''; 
-  
+  valor = '';
+
 
   constructor(private sanitizer: DomSanitizer,
     private ipeteservices: IpetService,
@@ -59,7 +67,7 @@ export class DisponibilidadePage implements OnInit {
           this.cidade = response['cidade'];
           this.bairro = response['bairro'];
           this.numero = response['num'];
-          this.opcao = response['disponibilidade']; 
+          this.opcao = response['disponibilidade'];
           this.valor = response['valor'];
           //this.inicio();
         }
@@ -71,19 +79,19 @@ export class DisponibilidadePage implements OnInit {
   }
 
   adicionarDisponibilidade(form) {
-    if(form.value['cidade']== ""){
+    if (form.value['cidade'] == "") {
       form.value['cidade'] = this.cidade;
     }
-    if(form.value['bairro']== ""){
+    if (form.value['bairro'] == "") {
       form.value['bairro'] = this.bairro;
     }
-    if(form.value['numero']== ""){
+    if (form.value['numero'] == "") {
       form.value['numero'] = this.numero;
     }
-    if(form.value['opcao']== ""){
+    if (form.value['opcao'] == "") {
       form.value['opcao'] = this.opcao;
     }
-    if(form.value['valor']== ""){
+    if (form.value['valor'] == "") {
       form.value['valor'] = this.valor;
     }
 
@@ -120,12 +128,22 @@ export class DisponibilidadePage implements OnInit {
     const image = await Plugins.Camera.getPhoto({
       quality: 100,
       allowEditing: true,
-      resultType: CameraResultType.DataUrl,
+      resultType: CameraResultType.Base64,
       source: CameraSource.Camera,
       saveToGallery: true,
     });
+    console.log(image);
+    console.log('imaeg: ', image);
 
-    //console.log(image['dataUrl']);
+    const blobData = this.b64toBlob(image.base64String, `image/${image.format}`);
+    console.log(blobData);
+    const imageName = 'Give me a name';
+
+    this.ipeteservices.uploadImage(blobData, imageName, image.format).subscribe((newImage: ApiImage) => {
+      console.log('afeter captura: ', newImage);
+
+      this.imagens.push(newImage);
+    });
 
     this.photo = this.sanitizer.bypassSecurityTrustResourceUrl(image && (image.dataUrl));
 
@@ -136,12 +154,26 @@ export class DisponibilidadePage implements OnInit {
 
   }
 
-  updateFoto(image) {
-    console.log(localStorage.getItem('fotos'));
-    localStorage.setItem('id_foto', sessionStorage.getItem('id_usuario'));
-    localStorage.setItem('foto', image);
-    localStorage.setItem('fotos', JSON.stringify(this.imagens));
-    sessionStorage.setItem('fotos', JSON.stringify(this.imagens));
+  b64toBlob(b64Data, contentType = '', sliceSize = 512) {
+    const byteCharacters = atob(b64Data);
+    const byteArrays = [];
+
+    for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+      const slice = byteCharacters.slice(offset, offset + sliceSize);
+
+      const byteNumbers = new Array(slice.length);
+      for (let i = 0; i < slice.length; i++) {
+        byteNumbers[i] = slice.charCodeAt(i);
+      }
+
+      const byteArray = new Uint8Array(byteNumbers);
+      byteArrays.push(byteArray);
+    }
+
+    const blob = new Blob(byteArrays, { type: contentType });
+    return blob;
   }
+
   */
+
 }

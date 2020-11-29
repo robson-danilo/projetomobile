@@ -31,6 +31,14 @@ const routes: Routes = [
     path: 'listar',
     loadChildren: () => import('./listar/listar.module').then( m => m.ListarPageModule)
   },
+  {
+    path: 'chat',
+    loadChildren: () => import('./chat/chat.module').then( m => m.ChatPageModule)
+  },
+  {
+    path: 'contatos',
+    loadChildren: () => import('./contatos/contatos.module').then( m => m.ContatosPageModule)
+  },
 ];
 
 @NgModule({
