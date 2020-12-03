@@ -4,14 +4,9 @@ import { Component, OnInit } from '@angular/core';
 import { Plugins, CameraResultType, CameraSource } from '@capacitor/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
-/*
-export interface ApiImage {
-  _id: string;
-  name: string;
-  createAt: Date;
-  url: string;
-}
-*/
+
+
+
 @Component({
   selector: 'app-disponibilidade',
   templateUrl: './disponibilidade.page.html',
@@ -22,8 +17,6 @@ export class DisponibilidadePage implements OnInit {
   ngOnInit() {
   }
 
-  photo: SafeResourceUrl;
-  imagens: any[] = [];
   cadastrado = 0;
   cidade = '';
   bairro = '';
@@ -43,6 +36,7 @@ export class DisponibilidadePage implements OnInit {
   }
   */
     this.getDisponibilidade();
+    console.log(sessionStorage.getItem('id_usuario'));
 
   }
 
@@ -123,57 +117,8 @@ export class DisponibilidadePage implements OnInit {
     }
 
   }
-  /*
-  async takePicture() {
-    const image = await Plugins.Camera.getPhoto({
-      quality: 100,
-      allowEditing: true,
-      resultType: CameraResultType.Base64,
-      source: CameraSource.Camera,
-      saveToGallery: true,
-    });
-    console.log(image);
-    console.log('imaeg: ', image);
-
-    const blobData = this.b64toBlob(image.base64String, `image/${image.format}`);
-    console.log(blobData);
-    const imageName = 'Give me a name';
-
-    this.ipeteservices.uploadImage(blobData, imageName, image.format).subscribe((newImage: ApiImage) => {
-      console.log('afeter captura: ', newImage);
-
-      this.imagens.push(newImage);
-    });
-
-    this.photo = this.sanitizer.bypassSecurityTrustResourceUrl(image && (image.dataUrl));
-
-    let imagens = { url: image['dataUrl'], id: sessionStorage.getItem('id_usuario') }
-    this.imagens.push(imagens);
-
-    this.updateFoto(image['dataUrl']);
-
-  }
-
-  b64toBlob(b64Data, contentType = '', sliceSize = 512) {
-    const byteCharacters = atob(b64Data);
-    const byteArrays = [];
-
-    for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
-      const slice = byteCharacters.slice(offset, offset + sliceSize);
-
-      const byteNumbers = new Array(slice.length);
-      for (let i = 0; i < slice.length; i++) {
-        byteNumbers[i] = slice.charCodeAt(i);
-      }
-
-      const byteArray = new Uint8Array(byteNumbers);
-      byteArrays.push(byteArray);
-    }
-
-    const blob = new Blob(byteArrays, { type: contentType });
-    return blob;
-  }
-
-  */
+  
+ 
+  
 
 }

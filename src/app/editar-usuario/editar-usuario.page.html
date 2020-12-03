@@ -14,7 +14,7 @@
       <ion-row color="primary" justify-content-center>
         <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
           <div text-center>
-            <h3>Faça seu cadastro</h3>
+            <h3>Editar Dados</h3>
           </div>
           <div padding>
             <ion-item>
@@ -37,5 +37,24 @@
       </ion-row>
     </ion-grid>
   </form>
+  <ion-item>
+    <ion-item-sliding>
+      <img style="max-width: 90%;" [src]="'http://localhost/imagens/'+foto">
+      <ion-item>
+        
+      </ion-item>
+    </ion-item-sliding>
+  
+  </ion-item>
 
 </ion-content>
+
+
+
+
+<ion-fab vertical="bottom" horizontal="center" slot="fixed">
+  <ion-fab-button (click)="takePicture()">
+    <ion-icon name="camera"></ion-icon>
+  </ion-fab-button>
+
+</ion-fab>

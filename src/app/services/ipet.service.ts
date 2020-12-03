@@ -1,14 +1,14 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-/*
+
 export interface ApiImage {
   _id: string;
   name: string;
   createAt: Date;
   url: string;
 }
-*/
+
 @Injectable({
   providedIn: 'root'
 })
@@ -228,21 +228,38 @@ export class IpetService {
 
   }
 
-  /*
+  
 
 
-  url = 'http://localhost/welcome/uploadTeste/';
+  url = 'http://localhost/welcome/uploadImagemEditar/'+sessionStorage.getItem('id_usuario')+'/';
 
   uploadImage(blobData, name, ext) {
     const formData = new FormData();
     formData.append('file', blobData, `myimage.${ext}`);
     formData.append('name', name);
     console.log(blobData);
-    //let url = 'http://localhost/welcome/uploadTeste' + formData;
+    //let url = 'http://localhost/welcome/uploadteste' + formData;
 
     //return this.http.ost()
 
-    return this.http.post(`${this.url}image`, formData);
+    return this.http.post(`${this.url}image`, formData).toPromise();
+    
   }
-  */
+
+  urlChat = 'http://localhost/welcome/uploadImagemChat/' + sessionStorage.getItem('id_usuario') + '/' + sessionStorage.getItem('id_usuario_enviar')+'/';
+
+  uploadImageChat(blobData, name, ext) {
+    const formData = new FormData();
+    formData.append('file', blobData, `myimage.${ext}`);
+    formData.append('name', name);
+    console.log(blobData);
+    //let url = 'http://localhost/welcome/uploadteste' + formData;
+
+    //return this.http.ost()
+
+    return this.http.post(`${this.urlChat}image`, formData).toPromise();
+    
+  }
+  
+  
 }
