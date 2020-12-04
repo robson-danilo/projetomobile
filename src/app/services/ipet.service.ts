@@ -14,12 +14,12 @@ export interface ApiImage {
 })
 export class IpetService {
 
-  private api: string = 'http://localhost/welcome/testar/';
+  private api: string = 'https://solidariounifg.000webhostapp.com/welcome/testar/';
 
   constructor(private http: HttpClient) { }
 
   inserirUsuario(dados: string) {
-    let url = 'http://localhost/welcome/inserir/' + dados['nome'] + '/' + dados['email'] + '/' + dados['senha'] + '/' + dados['numero'];
+    let url = 'https://solidariounifg.000webhostapp.com/welcome/inserir/' + dados['nome'] + '/' + dados['email'] + '/' + dados['senha'] + '/' + dados['numero'];
 
     var header = {
       headers: new HttpHeaders()
@@ -32,7 +32,7 @@ export class IpetService {
   }
 
   editarUsuario(dados: string) {
-    let url = 'http://localhost/welcome/editarUsuario/' + dados['nome'] + '/' + dados['email'] + '/' + dados['senha'] + '/' + dados['numero'] + '/' + sessionStorage.getItem('id_usuario');
+    let url = 'https://solidariounifg.000webhostapp.com/welcome/editarUsuario/' + dados['nome'] + '/' + dados['email'] + '/' + dados['senha'] + '/' + dados['numero'] + '/' + sessionStorage.getItem('id_usuario');
 
     var header = {
       headers: new HttpHeaders()
@@ -45,7 +45,7 @@ export class IpetService {
   }
 
   buscarUsuario(id: string) {
-    let url = 'http://localhost/welcome/buscarUsuario/' + id;
+    let url = 'https://solidariounifg.000webhostapp.com/welcome/buscarUsuario/' + id;
 
     var header = {
       headers: new HttpHeaders()
@@ -59,7 +59,7 @@ export class IpetService {
   }
 
   inserirDisponibilidade(dados: string) {
-    let url = 'http://localhost/welcome/inserirDisponibilidade/' + dados['cidade'] + '/' + dados['bairro'] + '/' + dados['numero'] + '/' + sessionStorage.getItem('id_usuario') + '/' + dados['opcao'] + '/' + dados['valor'] + '/' + 1;
+    let url = 'https://solidariounifg.000webhostapp.com/welcome/inserirDisponibilidade/' + dados['cidade'] + '/' + dados['bairro'] + '/' + dados['numero'] + '/' + sessionStorage.getItem('id_usuario') + '/' + dados['opcao'] + '/' + dados['valor'] + '/' + 1;
 
     var header = {
       headers: new HttpHeaders()
@@ -72,7 +72,7 @@ export class IpetService {
   }
 
   editarDisponibilidade(dados: string) {
-    let url = 'http://localhost/welcome/editarDisponibilidade/' + dados['cidade'] + '/' + dados['bairro'] + '/' + dados['numero'] + '/' + sessionStorage.getItem('id_usuario') + '/' + dados['opcao'] + '/' + dados['valor'] + '/' + 1;
+    let url = 'https://solidariounifg.000webhostapp.com/welcome/editarDisponibilidade/' + dados['cidade'] + '/' + dados['bairro'] + '/' + dados['numero'] + '/' + sessionStorage.getItem('id_usuario') + '/' + dados['opcao'] + '/' + dados['valor'] + '/' + 1;
 
     var header = {
       headers: new HttpHeaders()
@@ -85,7 +85,7 @@ export class IpetService {
   }
 
   buscarDisponibilidade(id: string) {
-    let url = 'http://localhost/welcome/buscarDisponibilidade/' + id;
+    let url = 'https://solidariounifg.000webhostapp.com/welcome/buscarDisponibilidade/' + id;
 
     var header = {
       headers: new HttpHeaders()
@@ -102,7 +102,7 @@ export class IpetService {
     if (dados['cidade'] == '') {
       dados['cidade'] = null;
     }
-    let url = 'http://localhost/welcome/buscarDisponibilidadePesquisa/' + dados['cidade'] + '/' + dados['disponibilidade'];
+    let url = 'https://solidariounifg.000webhostapp.com/welcome/buscarDisponibilidadePesquisa/' + dados['cidade'] + '/' + dados['disponibilidade'];
 
     var header = {
       headers: new HttpHeaders()
@@ -117,7 +117,7 @@ export class IpetService {
 
 
   confirmarLogin(dados: string) {
-    let url = 'http://localhost/welcome/buscar/' + dados['email'] + '/' + dados['senha'];
+    let url = 'https://solidariounifg.000webhostapp.com/welcome/buscar/' + dados['email'] + '/' + dados['senha'];
 
     var header = {
       headers: new HttpHeaders()
@@ -131,7 +131,7 @@ export class IpetService {
   }
 
   verificarEmail(dados: string) {
-    let url = 'http://localhost/welcome/verificar/' + dados['email'];
+    let url = 'https://solidariounifg.000webhostapp.com/welcome/verificar/' + dados['email'];
 
     var header = {
       headers: new HttpHeaders()
@@ -145,7 +145,7 @@ export class IpetService {
   }
 
   buscarMensagens() {
-    let url = 'http://localhost/welcome/ListarConversa/' + sessionStorage.getItem('id_usuario') + '/' + sessionStorage.getItem('id_usuario_enviar');
+    let url = 'https://solidariounifg.000webhostapp.com/welcome/ListarConversa/' + sessionStorage.getItem('id_usuario') + '/' + sessionStorage.getItem('id_usuario_enviar');
 
     var header = {
       headers: new HttpHeaders()
@@ -159,7 +159,7 @@ export class IpetService {
   }
 
   enviarMensagens(mensagem: string) {
-    let url = 'http://localhost/welcome/EnviarConversa/' + sessionStorage.getItem('id_usuario') + '/' + sessionStorage.getItem('id_usuario_enviar') + '/' + mensagem;
+    let url = 'https://solidariounifg.000webhostapp.com/welcome/EnviarConversa/' + sessionStorage.getItem('id_usuario') + '/' + sessionStorage.getItem('id_usuario_enviar') + '/' + mensagem;
 
     var header = {
       headers: new HttpHeaders()
@@ -173,7 +173,7 @@ export class IpetService {
   }
 
   deletarMensagemDuplicada(id: string) {
-    let url = 'http://localhost/welcome/deletarMensagem/' + id ;
+    let url = 'https://solidariounifg.000webhostapp.com/welcome/deletarMensagem/' + id ;
 
     var header = {
       headers: new HttpHeaders()
@@ -187,7 +187,7 @@ export class IpetService {
   }
 
   buscarContatos() {
-    let url = 'http://localhost/welcome/ListarContatos/' + sessionStorage.getItem('id_usuario');
+    let url = 'https://solidariounifg.000webhostapp.com/welcome/ListarContatos/' + sessionStorage.getItem('id_usuario');
 
     var header = {
       headers: new HttpHeaders()
@@ -201,7 +201,7 @@ export class IpetService {
   }
 
   editarEstrelas(estrelas: number) {
-    let url = 'http://localhost/welcome/editarAvaliacao/' + estrelas + '/' + sessionStorage.getItem('id_estrelas_update') ;
+    let url = 'https://solidariounifg.000webhostapp.com/welcome/editarAvaliacao/' + estrelas + '/' + sessionStorage.getItem('id_estrelas_update') ;
 
     var header = {
       headers: new HttpHeaders()
@@ -215,7 +215,7 @@ export class IpetService {
   }
 
   inserirEstrelas(estrelas: number) {
-    let url = 'http://localhost/welcome/inserirAvaliacao/' + estrelas + '/' + sessionStorage.getItem('id_usuario') + '/' + sessionStorage.getItem('id_recebeu_estrelas') ;
+    let url = 'https://solidariounifg.000webhostapp.com/welcome/inserirAvaliacao/' + estrelas + '/' + sessionStorage.getItem('id_usuario') + '/' + sessionStorage.getItem('id_recebeu_estrelas') ;
 
     var header = {
       headers: new HttpHeaders()
@@ -231,14 +231,14 @@ export class IpetService {
   
 
 
-  url = 'http://localhost/welcome/uploadImagemEditar/'+sessionStorage.getItem('id_usuario')+'/';
+  url = 'https://solidariounifg.000webhostapp.com/welcome/uploadImagemEditar/'+sessionStorage.getItem('id_usuario')+'/';
 
   uploadImage(blobData, name, ext) {
     const formData = new FormData();
     formData.append('file', blobData, `myimage.${ext}`);
     formData.append('name', name);
     console.log(blobData);
-    //let url = 'http://localhost/welcome/uploadteste' + formData;
+    //let url = 'https://solidariounifg.000webhostapp.com/welcome/uploadteste' + formData;
 
     //return this.http.ost()
 
@@ -246,14 +246,14 @@ export class IpetService {
     
   }
 
-  urlChat = 'http://localhost/welcome/uploadImagemChat/' + sessionStorage.getItem('id_usuario') + '/' + sessionStorage.getItem('id_usuario_enviar')+'/';
+  urlChat = 'https://solidariounifg.000webhostapp.com/welcome/uploadImagemChat/' + sessionStorage.getItem('id_usuario') + '/' + sessionStorage.getItem('id_usuario_enviar')+'/';
 
   uploadImageChat(blobData, name, ext) {
     const formData = new FormData();
     formData.append('file', blobData, `myimage.${ext}`);
     formData.append('name', name);
     console.log(blobData);
-    //let url = 'http://localhost/welcome/uploadteste' + formData;
+    //let url = 'https://solidariounifg.000webhostapp.com/welcome/uploadteste' + formData;
 
     //return this.http.ost()
 
