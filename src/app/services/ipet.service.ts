@@ -36,7 +36,7 @@ export class IpetService {
     }
 
     const formData = new FormData();
-    formData.append('name', dados['nome']);
+    formData.append('name', 'teste');
     console.log(formData);
     return this.http.post(url, formData).toPromise();
 

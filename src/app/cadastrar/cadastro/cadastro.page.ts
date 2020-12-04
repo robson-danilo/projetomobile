@@ -69,30 +69,20 @@ export class CadastroPage implements OnInit {
 
 
   async add(dados: string) {
-    this.ipeteservices.verificarEmail(dados)
-      .then((response1) => {
-        if (response1 == false) {
-          this.ipeteservices.inserirUsuario(dados)
-            .then((response) => {
-              if (response == false) {
-                this.home(true);
-              }
-
-            })
-            .catch((erro) => {
-              var mensagem = 'Inserido com sucesso';
-              this.alertaDados(mensagem);
-              this.home(true);
-            });
-        } else {
+    this.ipeteservices.inserirUsuario(dados)
+      .then((response) => {
+        if (response == true) {
+          this.home(true);
+        }else {
           var mensagem = 'Email já cadastrado!';
           this.alertaDados(mensagem);
         }
 
       })
       .catch((erro) => {
-        var mensagem = 'Operação falhou';
+        var mensagem = 'Falha ao inserir';
         this.alertaDados(mensagem);
+        //this.home(true);
       });
   }
 
