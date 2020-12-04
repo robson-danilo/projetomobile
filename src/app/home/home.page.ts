@@ -1,6 +1,6 @@
 import { Router } from '@angular/router';
-import { IpetService } from './../services/ipet.service';
-import { Component } from '@angular/core';
+import { IpetService} from './../services/ipet.service';
+import { Component, OnInit } from '@angular/core';
 import { AlertController, ToastController } from '@ionic/angular';
 
 @Component({
@@ -8,12 +8,20 @@ import { AlertController, ToastController } from '@ionic/angular';
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage {
+export class HomePage implements OnInit{
+
+  
 
   constructor(private alertCtrl: AlertController,
     private toastCtrl: ToastController,
     private ipeteservices: IpetService,
     private router: Router) { }
+
+  ngOnInit(){
+    this.ipeteservices.testando().subscribe(response =>{
+      console.log(response);
+    })
+  }
 
 
   async cadastrar() {
@@ -45,6 +53,9 @@ export class HomePage {
     }
 
   }
+
+
+
 
   async alertaDados(mensagem: string) {
     const toast = await this.toastCtrl.create({

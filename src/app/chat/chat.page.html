@@ -25,14 +25,14 @@
       <ion-text  slot="start">{{mensagem.conversa}}</ion-text>
     </ion-item>
     <ion-item *ngIf=" mensagem.id_enviou != id_usuario_enviar && mensagem.foto != null" style="--ion-background-color: rgb(164, 218, 179); margin-left: 10%;">
-      <ion-text  slot="start"><img style="max-width: 60%;" [src]="'http://localhost/imagens/chat/'+mensagem.foto"></ion-text>
+      <ion-text  slot="start"><img style="max-width: 60%;" [src]="'https://solidariounifg.000webhostapp.com/imagens/chat/'+mensagem.foto"></ion-text>
     </ion-item>
 
     <ion-item *ngIf=" mensagem.id_enviou == id_usuario_enviar && mensagem.conversa != null" style="--ion-background-color: rgb(235, 235, 235); margin-right: 10%;">
       <ion-text  slot="start">{{mensagem.conversa}}</ion-text>
     </ion-item>
     <ion-item *ngIf=" mensagem.id_enviou == id_usuario_enviar && mensagem.foto != null" style="--ion-background-color: rgb(235, 235, 235); margin-right: 10%;">
-      <ion-text  slot="start"><img style="max-width: 60%;" [src]="'http://localhost/imagens/chat/'+mensagem.foto"></ion-text>
+      <ion-text  slot="start"><img style="max-width: 60%;" [src]="'https://solidariounifg.000webhostapp.com/imagens/chat/'+mensagem.foto"></ion-text>
     </ion-item>
   </ion-list>
 

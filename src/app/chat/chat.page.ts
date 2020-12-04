@@ -58,15 +58,8 @@ export class ChatPage implements OnInit {
   enviarMensagem() {
     this.ipeteservices.enviarMensagens(this.message)
       .then((response) => {
-        this.id_deletar = response;
-        this.ipeteservices.deletarMensagemDuplicada(this.id_deletar)
-          .then((response) => {
-            this.message = "";
-            this.getMensagens();
-          })
-          .catch((erro) => {
-            console.error(erro);
-          });
+        this.message = "";
+        this.getMensagens();
 
       })
       .catch((erro) => {

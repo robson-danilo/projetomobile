@@ -9,6 +9,8 @@ export interface ApiImage {
   url: string;
 }
 
+
+
 @Injectable({
   providedIn: 'root'
 })
@@ -18,6 +20,13 @@ export class IpetService {
 
   constructor(private http: HttpClient) { }
 
+  private urlteste = 'https://solidariounifg.000webhostapp.com/welcome/buscarusuario/1';
+
+  testando() {
+    return this.http.get(this.urlteste);
+  }
+
+
   inserirUsuario(dados: string) {
     let url = 'https://solidariounifg.000webhostapp.com/welcome/inserir/' + dados['nome'] + '/' + dados['email'] + '/' + dados['senha'] + '/' + dados['numero'];
 
@@ -26,8 +35,23 @@ export class IpetService {
         .set('Content-type', `application/json`)
     }
 
+    const formData = new FormData();
+    formData.append('name', dados['nome']);
+    console.log(formData);
+    return this.http.post(url, formData).toPromise();
+
     //let param = {nome: dados};
-    return this.http.post(url, header).toPromise();
+    //return this.http.post(url, header).toPromise();
+
+
+
+    //let url = 'https://solidariounifg.000webhostapp.com/welcome/uploadteste' + formData;
+
+    //return this.http.ost()
+    //return this.http.post(`${this.urlChat}image`, formData).toPromise();
+
+
+
 
   }
 
@@ -39,8 +63,13 @@ export class IpetService {
         .set('Content-type', `application/json`)
     }
 
+    const formData = new FormData();
+    formData.append('name', 'testando');
+    console.log(formData);
+    return this.http.post(url, formData).toPromise();
+
     //let param = {nome: dados};
-    return this.http.post(url, header).toPromise();
+    //return this.http.post(url, header).toPromise();
 
   }
 
@@ -54,7 +83,7 @@ export class IpetService {
 
     //let param = {nome: dados};
 
-    return this.http.get(url, header).toPromise();
+    return this.http.get(url).toPromise();
 
   }
 
@@ -66,8 +95,13 @@ export class IpetService {
         .set('Content-type', `application/json`)
     }
 
+    const formData = new FormData();
+    formData.append('name', 'testando');
+    console.log(formData);
+    return this.http.post(url, formData).toPromise();
+
     //let param = {nome: dados};
-    return this.http.post(url, header).toPromise();
+    //return this.http.post(url, header).toPromise();
 
   }
 
@@ -78,9 +112,13 @@ export class IpetService {
       headers: new HttpHeaders()
         .set('Content-type', `application/json`)
     }
+    const formData = new FormData();
+    formData.append('name', 'testando');
+    console.log(formData);
+    return this.http.post(url, formData).toPromise();
 
     //let param = {nome: dados};
-    return this.http.post(url, header).toPromise();
+    //return this.http.post(url, header).toPromise();
 
   }
 
@@ -94,7 +132,7 @@ export class IpetService {
 
     //let param = {nome: dados};
 
-    return this.http.get(url, header).toPromise();
+    return this.http.get(url).toPromise();
 
   }
 
@@ -111,7 +149,7 @@ export class IpetService {
 
     //let param = {nome: dados};
 
-    return this.http.get(url, header).toPromise();
+    return this.http.get(url).toPromise();
 
   }
 
@@ -125,8 +163,8 @@ export class IpetService {
     }
 
     //let param = {nome: dados};
-
-    return this.http.get(url, header).toPromise();
+    return this.http.get(url).toPromise();
+    //return this.http.get(url, header).toPromise();
 
   }
 
@@ -140,7 +178,7 @@ export class IpetService {
 
     //let param = {nome: dados};
 
-    return this.http.get(url, header).toPromise();
+    return this.http.get(url).toPromise();
 
   }
 
@@ -154,7 +192,7 @@ export class IpetService {
 
     //let param = {nome: dados};
 
-    return this.http.get(url, header).toPromise();
+    return this.http.get(url).toPromise();
 
   }
 
@@ -166,14 +204,18 @@ export class IpetService {
         .set('Content-type', `application/json`)
     }
 
+    const formData = new FormData();
+    formData.append('name', 'testando');
+    console.log(formData);
+    return this.http.post(url, formData).toPromise();
     //let param = {nome: dados};
 
-    return this.http.post(url, header).toPromise();
+    //return this.http.post(url, header).toPromise();
 
   }
 
   deletarMensagemDuplicada(id: string) {
-    let url = 'https://solidariounifg.000webhostapp.com/welcome/deletarMensagem/' + id ;
+    let url = 'https://solidariounifg.000webhostapp.com/welcome/deletarMensagem/' + id;
 
     var header = {
       headers: new HttpHeaders()
@@ -182,7 +224,12 @@ export class IpetService {
 
     //let param = {nome: dados};
 
-    return this.http.delete(url, header).toPromise();
+    const formData = new FormData();
+    formData.append('name', 'testando');
+    console.log(formData);
+    return this.http.post(url, formData).toPromise();
+
+    //return this.http.delete(url).toPromise();
 
   }
 
@@ -196,12 +243,12 @@ export class IpetService {
 
     //let param = {nome: dados};
 
-    return this.http.get(url, header).toPromise();
+    return this.http.get(url).toPromise();
 
   }
 
   editarEstrelas(estrelas: number) {
-    let url = 'https://solidariounifg.000webhostapp.com/welcome/editarAvaliacao/' + estrelas + '/' + sessionStorage.getItem('id_estrelas_update') ;
+    let url = 'https://solidariounifg.000webhostapp.com/welcome/editarAvaliacao/' + estrelas + '/' + sessionStorage.getItem('id_estrelas_update');
 
     var header = {
       headers: new HttpHeaders()
@@ -209,13 +256,17 @@ export class IpetService {
     }
 
     //let param = {nome: dados};
+    const formData = new FormData();
+    formData.append('name', 'testando');
+    console.log(formData);
+    return this.http.post(url, formData).toPromise();
 
-    return this.http.post(url, header).toPromise();
+    //return this.http.post(url, header).toPromise();
 
   }
 
   inserirEstrelas(estrelas: number) {
-    let url = 'https://solidariounifg.000webhostapp.com/welcome/inserirAvaliacao/' + estrelas + '/' + sessionStorage.getItem('id_usuario') + '/' + sessionStorage.getItem('id_recebeu_estrelas') ;
+    let url = 'https://solidariounifg.000webhostapp.com/welcome/inserirAvaliacao/' + estrelas + '/' + sessionStorage.getItem('id_usuario') + '/' + sessionStorage.getItem('id_recebeu_estrelas');
 
     var header = {
       headers: new HttpHeaders()
@@ -224,14 +275,19 @@ export class IpetService {
 
     //let param = {nome: dados};
 
-    return this.http.post(url, header).toPromise();
+    const formData = new FormData();
+    formData.append('name', 'testando');
+    console.log(formData);
+    return this.http.post(url, formData).toPromise();
+
+    //return this.http.post(url, header).toPromise();
 
   }
 
-  
 
 
-  url = 'https://solidariounifg.000webhostapp.com/welcome/uploadImagemEditar/'+sessionStorage.getItem('id_usuario')+'/';
+
+  url = 'https://solidariounifg.000webhostapp.com/welcome/uploadImagemEditar/' + sessionStorage.getItem('id_usuario') + '/';
 
   uploadImage(blobData, name, ext) {
     const formData = new FormData();
@@ -243,10 +299,10 @@ export class IpetService {
     //return this.http.ost()
 
     return this.http.post(`${this.url}image`, formData).toPromise();
-    
+
   }
 
-  urlChat = 'https://solidariounifg.000webhostapp.com/welcome/uploadImagemChat/' + sessionStorage.getItem('id_usuario') + '/' + sessionStorage.getItem('id_usuario_enviar')+'/';
+  urlChat = 'https://solidariounifg.000webhostapp.com/welcome/uploadImagemChat/' + sessionStorage.getItem('id_usuario') + '/' + sessionStorage.getItem('id_usuario_enviar') + '/';
 
   uploadImageChat(blobData, name, ext) {
     const formData = new FormData();
@@ -256,10 +312,9 @@ export class IpetService {
     //let url = 'https://solidariounifg.000webhostapp.com/welcome/uploadteste' + formData;
 
     //return this.http.ost()
-
     return this.http.post(`${this.urlChat}image`, formData).toPromise();
-    
+
   }
-  
-  
+
+
 }
