@@ -287,9 +287,12 @@ export class IpetService {
 
 
 
-  url = 'https://solidariounifg.000webhostapp.com/welcome/uploadImagemEditar/' + sessionStorage.getItem('id_usuario') + '/';
+  //url = 'https://solidariounifg.000webhostapp.com/welcome/uploadImagemEditar/' + sessionStorage.getItem('id_usuario') + '/';
 
   uploadImage(blobData, name, ext) {
+    let url = 'https://solidariounifg.000webhostapp.com/welcome/uploadImagemEditar/' + sessionStorage.getItem('id_usuario');
+
+
     const formData = new FormData();
     formData.append('file', blobData, `myimage.${ext}`);
     formData.append('name', name);
@@ -298,13 +301,15 @@ export class IpetService {
 
     //return this.http.ost()
 
-    return this.http.post(`${this.url}image`, formData).toPromise();
+    return this.http.post(url, formData).toPromise();
 
   }
 
-  urlChat = 'https://solidariounifg.000webhostapp.com/welcome/uploadImagemChat/' + sessionStorage.getItem('id_usuario') + '/' + sessionStorage.getItem('id_usuario_enviar') + '/';
+  //urlChat = 'https://solidariounifg.000webhostapp.com/welcome/uploadImagemChat/' + sessionStorage.getItem('id_usuario') + '/' + sessionStorage.getItem('id_usuario_enviar') + '/';
 
   uploadImageChat(blobData, name, ext) {
+
+    let urlChat = 'https://solidariounifg.000webhostapp.com/welcome/uploadImagemChat/' + sessionStorage.getItem('id_usuario') + '/' + sessionStorage.getItem('id_usuario_enviar') + '/';
     const formData = new FormData();
     formData.append('file', blobData, `myimage.${ext}`);
     formData.append('name', name);
@@ -312,7 +317,7 @@ export class IpetService {
     //let url = 'https://solidariounifg.000webhostapp.com/welcome/uploadteste' + formData;
 
     //return this.http.ost()
-    return this.http.post(`${this.urlChat}image`, formData).toPromise();
+    return this.http.post(urlChat, formData).toPromise();
 
   }
 

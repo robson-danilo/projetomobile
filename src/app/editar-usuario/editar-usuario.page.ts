@@ -3,6 +3,7 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ToastController } from '@ionic/angular';
 import { IpetService } from './../services/ipet.service';
 import { Component, OnInit } from '@angular/core';
+import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 
 export interface ApiImage {
   _id: string;
@@ -20,9 +21,10 @@ export class EditarUsuarioPage implements OnInit {
 
   constructor(private ipeteservices: IpetService,
     private toastCtrl: ToastController,
-    private sanitizer: DomSanitizer) { 
-      this.getUsuario();
-    }
+    private sanitizer: DomSanitizer,
+    private camera: Camera) {
+    this.getUsuario();
+  }
 
   ngOnInit() {
   }
@@ -50,11 +52,11 @@ export class EditarUsuarioPage implements OnInit {
     this.ipeteservices.buscarUsuario(sessionStorage.getItem('id_usuario'))
       .then((response) => {
         console.log(response);
-          this.nome = response['nome'];
-          this.email = response['email'];
-          this.senha = response['senha'];
-          this.numero = response['numero'];
-          this.foto = response['foto'];
+        this.nome = response['nome'];
+        this.email = response['email'];
+        this.senha = response['senha'];
+        this.numero = response['numero'];
+        this.foto = response['foto'];
 
       })
       .catch((erro) => {
@@ -63,31 +65,31 @@ export class EditarUsuarioPage implements OnInit {
   }
 
   editarUsuario(form) {
-    if(form.value['nome']== ""){
+    if (form.value['nome'] == "") {
       form.value['nome'] = this.nome;
     }
-    if(form.value['email']== ""){
+    if (form.value['email'] == "") {
       form.value['email'] = this.email;
     }
-    if(form.value['senha']== ""){
+    if (form.value['senha'] == "") {
       form.value['senha'] = this.senha;
     }
-    if(form.value['numero']== ""){
+    if (form.value['numero'] == "") {
       form.value['numero'] = this.numero;
     }
-      this.ipeteservices.editarUsuario(form.value)
-        .then((response) => {
-          //console.log(response);
-          console.log('editado com sucesso!');
-          var mensagem = 'Editado com sucesso!';
-          this.alertaDados(mensagem);
-          this.getUsuario();
+    this.ipeteservices.editarUsuario(form.value)
+      .then((response) => {
+        //console.log(response);
+        console.log('editado com sucesso!');
+        var mensagem = 'Editado com sucesso!';
+        this.alertaDados(mensagem);
+        this.getUsuario();
 
-        })
-        .catch((erro) => {
-          console.error(erro);
-        });
-    
+      })
+      .catch((erro) => {
+        console.error(erro);
+      });
+
 
   }
 
@@ -98,13 +100,10 @@ export class EditarUsuarioPage implements OnInit {
       allowEditing: true,
       resultType: CameraResultType.Base64,
       source: CameraSource.Camera,
-      saveToGallery: true,
+      saveToGallery: false,
     });
-    console.log(image);
-    console.log('imaeg: ', image);
 
     const blobData = this.b64toBlob(image.base64String, `image/${image.format}`);
-    console.log(blobData);
     const imageName = 'Give me a name';
 
     this.ipeteservices.uploadImage(blobData, imageName, image.format).then((response) => {
@@ -115,9 +114,9 @@ export class EditarUsuarioPage implements OnInit {
       this.getUsuario();
 
     })
-    .catch((erro) => {
-      console.error(erro);
-    });
+      .catch((erro) => {
+        console.error(erro);
+      });
     //this.getUsuario();
 
     //this.photo = this.sanitizer.bypassSecurityTrustResourceUrl(image && (image.dataUrl));
@@ -147,6 +146,36 @@ export class EditarUsuarioPage implements OnInit {
 
     const blob = new Blob(byteArrays, { type: contentType });
     return blob;
+  }
+
+
+  tirarFoto() {
+    const options: CameraOptions = {
+      quality: 100,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.PNG,
+      mediaType: this.camera.MediaType.PICTURE
+    };
+
+    this.camera.getPicture(options).then((imageData) => {
+      const blobData = this.b64toBlob(imageData, `image/png`);
+      const imageName = 'Give me a name';
+
+      this.ipeteservices.uploadImage(blobData, imageName, 'png').then((response) => {
+        //console.log(response);
+        console.log('Foto inserida com sucesso');
+        var mensagem = 'Foto inserida com sucesso';
+        this.alertaDados(mensagem);
+        this.getUsuario();
+
+      })
+        .catch((erro) => {
+          console.error(erro);
+        });
+    }, (err) => {
+      alert('ocorreu um erro');
+      alert(err);
+    })
   }
 
 

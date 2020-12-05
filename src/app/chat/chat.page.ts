@@ -4,6 +4,7 @@ import { IpetService } from './../services/ipet.service';
 import { Component, OnInit } from '@angular/core';
 import { Plugins, CameraResultType, CameraSource } from '@capacitor/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 
 export interface ApiImage {
   _id: string;
@@ -28,7 +29,8 @@ export class ChatPage implements OnInit {
 
   constructor(private ipeteservices: IpetService,
     private toastCtrl: ToastController,
-    private datePipe: DatePipe) {
+    private datePipe: DatePipe,
+    private camera: Camera) {
 
     this.getMensagens();
     this.id_usuario_enviar = sessionStorage.getItem('id_usuario_enviar');
@@ -124,6 +126,35 @@ export class ChatPage implements OnInit {
 
     const blob = new Blob(byteArrays, { type: contentType });
     return blob;
+  }
+
+  chatFoto() {
+    const options: CameraOptions = {
+      quality: 100,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.PNG,
+      mediaType: this.camera.MediaType.PICTURE
+    };
+
+    this.camera.getPicture(options).then((imageData) => {
+      const blobData = this.b64toBlob(imageData, `image/png`);
+      const imageName = 'Give me a name';
+      this.ipeteservices.uploadImageChat(blobData, imageName, 'png').then((response) => {
+        //console.log(response);
+        console.log('Foto Enviada');
+        this.message = "";
+        this.getMensagens();
+        //var mensagem = 'Foto inserida com sucesso';
+        //this.alertaDados(mensagem);
+        //this.getUsuario();
+      })
+        .catch((erro) => {
+          console.error(erro);
+        });
+    }, (err) => {
+      alert('ocorreu um erro');
+      alert(err);
+    })
   }
 
 }

@@ -11,6 +11,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { IpetService } from './services/ipet.service';
 import { DatePipe } from '@angular/common';
+import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -21,6 +22,7 @@ import { DatePipe } from '@angular/common';
     SplashScreen,
     IpetService,
     DatePipe,
+    Camera,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
