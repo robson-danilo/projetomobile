@@ -154,7 +154,9 @@ export class EditarUsuarioPage implements OnInit {
       quality: 100,
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.PNG,
-      mediaType: this.camera.MediaType.PICTURE
+      mediaType: this.camera.MediaType.PICTURE,
+      targetWidth: 250, // 250px
+      targetHeight: 250 // 250px
     };
 
     this.camera.getPicture(options).then((imageData) => {

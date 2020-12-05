@@ -5,6 +5,7 @@ import { Component, OnInit } from '@angular/core';
 import { Plugins, CameraResultType, CameraSource } from '@capacitor/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
+import { rejects } from 'assert';
 
 export interface ApiImage {
   _id: string;
@@ -35,7 +36,12 @@ export class ChatPage implements OnInit {
     this.getMensagens();
     this.id_usuario_enviar = sessionStorage.getItem('id_usuario_enviar');
     this.nome_usuario_enviar = sessionStorage.getItem('nome_usuario_enviar');
+    this.doSomething().then(truthy => { });
+
+    
+
   }
+  
 
   ngOnInit() {
   }
@@ -133,7 +139,9 @@ export class ChatPage implements OnInit {
       quality: 100,
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.PNG,
-      mediaType: this.camera.MediaType.PICTURE
+      mediaType: this.camera.MediaType.PICTURE,
+      targetWidth: 250, // 250px
+      targetHeight: 250 // 250px
     };
 
     this.camera.getPicture(options).then((imageData) => {
@@ -155,6 +163,16 @@ export class ChatPage implements OnInit {
       alert('ocorreu um erro');
       alert(err);
     })
+  }
+
+  async doSomething(){
+    return new Promise((resolve, reject) => {
+      setTimeout(()=>{
+        resolve(true);
+        this.getMensagens();
+        this.doSomething().then(trythy => { console.log('finished')});
+      }, 5000);
+    });
   }
 
 }

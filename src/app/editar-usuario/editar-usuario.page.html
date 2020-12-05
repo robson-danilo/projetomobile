@@ -18,16 +18,16 @@
           </div>
           <div padding>
             <ion-item>
-              <ion-input name="nome" [value]="nome" type="text" placeholder="ipet" ngModel required></ion-input>
+              <ion-input name="nome" [value]="nome" type="text" placeholder="Nome" ngModel required></ion-input>
             </ion-item>
             <ion-item>
-              <ion-input name="email" [value]="email" type="email" placeholder="ipet@email.com" ngModel required></ion-input>
+              <ion-input name="email" [value]="email" type="email" placeholder="Email" ngModel required></ion-input>
             </ion-item>
             <ion-item>
-              <ion-input name="senha" [value]="senha" type="password" placeholder="Password" ngModel required></ion-input>
+              <ion-input name="senha" [value]="senha" type="password" placeholder="Senha" ngModel required></ion-input>
             </ion-item>
             <ion-item>
-              <ion-input name="numero" [value]="numero" type="number" placeholder="986662222" ngModel required></ion-input>
+              <ion-input name="numero" [value]="numero" type="number" placeholder="Whatsapp" ngModel required></ion-input>
             </ion-item>
           </div>
           <div padding>
@@ -39,7 +39,10 @@
   </form>
   <ion-item>
     <ion-item-sliding>
-      <img style="max-width: 90%;" [src]="'https://solidariounifg.000webhostapp.com/imagens/'+foto"> 
+      <img style="max-width: 90%; width: auto;
+      margin: auto;
+      display: block;
+      transform: rotate(270deg);" [src]="'https://gaosoft.com.br/apiMobile/imagens/'+foto"> 
       <ion-item>
         
       </ion-item>
