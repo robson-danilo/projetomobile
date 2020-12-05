@@ -27,16 +27,18 @@
           </ion-item>
           <ion-item>
             <ion-label>Opções</ion-label>
-            <ion-select name="opcao" value="{{opcao}}" okText="Selecionar" cancelTex="Cancelar" ngModel required>              
+            <ion-select name="opcao" value="{{opcao}}" (ionChange)="tipo($event);" okText="Selecionar" cancelTex="Cancelar" ngModel required>              
               <ion-select-option>HotelZinho</ion-select-option>
               <ion-select-option>Passear</ion-select-option>
+              <ion-select-option>PetShop</ion-select-option>
+              <ion-select-option>Veterinario</ion-select-option>
             </ion-select>
           </ion-item>
-          <ion-item>
+          <ion-item *ngIf="esconder == false">
             <ion-input name="valor" type="number" [value]="valor" placeholder="Valor" ngModel required></ion-input>/Hora
           </ion-item>
           <div padding>
-            <ion-button color="success" size="large" type="submit" expand="block">Confirmar
+            <ion-button color="success" [disabled]="form.invalid" size="large" type="submit" expand="block">Confirmar
             </ion-button>
           </div>
         </ion-col>

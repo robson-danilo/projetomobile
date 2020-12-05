@@ -23,6 +23,7 @@ export class DisponibilidadePage implements OnInit {
   numero = '';
   opcao = '';
   valor = '';
+  public esconder = true;
 
 
   constructor(private sanitizer: DomSanitizer,
@@ -37,6 +38,7 @@ export class DisponibilidadePage implements OnInit {
   */
     this.getDisponibilidade();
     console.log(sessionStorage.getItem('id_usuario'));
+    //this.teste(null);
 
   }
 
@@ -48,6 +50,16 @@ export class DisponibilidadePage implements OnInit {
     });
 
     toast.present();
+  }
+
+  
+  tipo(op: any, ) {
+    if (op.detail.value != "PetShop") {
+      console.log(op.detail.value);
+      this.esconder = false;
+    }else {
+      this.esconder = true;
+    }
   }
 
   getDisponibilidade() {
@@ -63,6 +75,9 @@ export class DisponibilidadePage implements OnInit {
           this.numero = response['num'];
           this.opcao = response['disponibilidade'];
           this.valor = response['valor'];
+          if (response['disponibilidade'] != "PetShop"){
+            this.esconder = false;
+          }
           //this.inicio();
         }
 
@@ -87,6 +102,10 @@ export class DisponibilidadePage implements OnInit {
     }
     if (form.value['valor'] == "") {
       form.value['valor'] = this.valor;
+    }
+
+    if(form.value['opcao'] == "PetShop"){
+      form.value['valor'] = 0;
     }
 
     if (this.cadastrado == 0) {
@@ -115,10 +134,9 @@ export class DisponibilidadePage implements OnInit {
           console.error(erro);
         });
     }
-
   }
-  
- 
-  
+
+
+
 
 }
