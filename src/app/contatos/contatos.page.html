@@ -1,8 +1,9 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>contatos</ion-title>
+    
     <ion-buttons>
       <ion-menu-button menu="menu-inicio"></ion-menu-button>
+      <ion-title>contatos</ion-title>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -13,7 +14,7 @@
     <ion-card>
       <ion-card-header>
         <ion-card-title>{{contato.nome}}</ion-card-title>
-        <img style="max-width: 50%;" [src]="'https://solidariounifg.000webhostapp.com/imagens/'+contato.foto">
+        <img *ngIf="contato.foto != null" style="max-width: 50%;" [src]="'https://gaosoft.com.br/apiMobile/imagens/'+contato.foto">
       </ion-card-header>
       <ion-card-content *ngIf=" contato.nome != 'Sem contatos'">
         <ion-col *ngIf=" contato.estrelas == null">
