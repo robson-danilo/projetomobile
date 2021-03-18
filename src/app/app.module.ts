@@ -12,17 +12,25 @@ import { AppRoutingModule } from './app-routing.module';
 import { IpetService } from './services/ipet.service';
 import { DatePipe } from '@angular/common';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
+import { Geolocation } from '@ionic-native/geolocation/ngx';
+
+import {NgxMaskIonicModule} from 'ngx-mask-ionic';
+
+import { IonicStorageModule } from '@ionic/storage';
+
+
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule],
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule, NgxMaskIonicModule.forRoot(), IonicStorageModule.forRoot()],
   providers: [
     StatusBar,
     SplashScreen,
     IpetService,
     DatePipe,
     Camera,
+    Geolocation,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

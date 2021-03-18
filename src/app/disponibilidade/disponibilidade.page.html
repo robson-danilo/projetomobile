@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    
+
     <ion-buttons>
       <ion-menu-button menu="menu-inicio"></ion-menu-button>
       <ion-title>Disponibilidade</ion-title>
@@ -28,7 +28,8 @@
           </ion-item>
           <ion-item>
             <ion-label>Opções</ion-label>
-            <ion-select name="opcao" value="{{opcao}}" (ionChange)="tipo($event);" okText="Selecionar" cancelTex="Cancelar" ngModel required>              
+            <ion-select name="opcao" value="{{opcao}}" (ionChange)="tipo($event);" okText="Selecionar"
+              cancelTex="Cancelar" ngModel required>
               <ion-select-option>HotelZinho</ion-select-option>
               <ion-select-option>Passear</ion-select-option>
               <ion-select-option>PetShop</ion-select-option>
@@ -46,8 +47,23 @@
       </ion-row>
     </ion-grid>
   </form>
-
-
+  <div *ngIf="cadastrado == 1">
+    <ion-item style="cursor: pointer" (click)="locatePosition()">
+      <ion-button fill="clear">
+        <ion-icon slot="start" name="map"></ion-icon>
+        Localização Atual
+      </ion-button>
+    </ion-item>
+  </div>
+  <div id="mapId" style="height:200px"></div>
+  <div *ngIf="cadastrado == 1">
+    
   
+    <ion-button color="success" size="large" type="submit" (click)="enviarlocal()" expand="block">Enviar localização
+    </ion-button>
+  </div>
+
+
+
 
 </ion-content>

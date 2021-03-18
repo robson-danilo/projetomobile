@@ -1,8 +1,11 @@
-import { ToastController } from '@ionic/angular';
+import { ToastController, LoadingController } from '@ionic/angular';
 import { IpetService } from './../services/ipet.service';
 import { Component, OnInit } from '@angular/core';
 import { Plugins, CameraResultType, CameraSource } from '@capacitor/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { Map, tileLayer, marker, Popup } from 'leaflet';
+import { Geolocation } from '@ionic-native/geolocation/ngx';
+
 
 
 
@@ -25,10 +28,19 @@ export class DisponibilidadePage implements OnInit {
   valor = '';
   public esconder = true;
 
+  map: Map;
+  popup: Popup;
+  newMarker: any;
+  address: string[];
+  latitude: any = '';
+  longitude: any = '';
+
 
   constructor(private sanitizer: DomSanitizer,
     private ipeteservices: IpetService,
-    private toastCtrl: ToastController) {
+    private toastCtrl: ToastController,
+    public loadingController: LoadingController,
+    private geoLocation: Geolocation) {
     /*
   let fotoJson = localStorage.getItem('foto');
   let id_foto = localStorage.getItem('id_foto');
@@ -36,8 +48,13 @@ export class DisponibilidadePage implements OnInit {
     this.photo = fotoJson;
   }
   */
+
+    
+  console.log(this.map);
+
     this.getDisponibilidade();
     console.log(sessionStorage.getItem('id_usuario'));
+
     //this.teste(null);
 
   }
@@ -52,12 +69,12 @@ export class DisponibilidadePage implements OnInit {
     toast.present();
   }
 
-  
-  tipo(op: any, ) {
+
+  tipo(op: any,) {
     if (op.detail.value != "PetShop") {
       console.log(op.detail.value);
       this.esconder = false;
-    }else {
+    } else {
       this.esconder = true;
     }
   }
@@ -75,8 +92,24 @@ export class DisponibilidadePage implements OnInit {
           this.numero = response['num'];
           this.opcao = response['disponibilidade'];
           this.valor = response['valor'];
-          if (response['disponibilidade'] != "PetShop"){
+          if (response['disponibilidade'] != "PetShop") {
             this.esconder = false;
+          }
+          if (response['latitude'] == null && response['longitude'] == null) {
+            console.log("entrou aqui");
+          this.geoLocation.getCurrentPosition().then((resp) => {
+            this.latitude = resp.coords.latitude;
+            this.longitude = resp.coords.longitude;
+            this.loadMap(this.latitude, this.longitude);
+            this.map.on('dblclick', (e) => { this.onMapClick(e) });
+          }).catch((error) => {
+            console.log('Error ao buscar localização', error);
+          });
+          } else {
+            this.latitude = response['latitude'];
+            this.longitude = response['longitude'];
+            this.loadMap(this.latitude, this.longitude);
+            this.map.on('dblclick', (e) => { this.onMapClick(e) });
           }
           //this.inicio();
         }
@@ -104,7 +137,7 @@ export class DisponibilidadePage implements OnInit {
       form.value['valor'] = this.valor;
     }
 
-    if(form.value['opcao'] == "PetShop"){
+    if (form.value['opcao'] == "PetShop") {
       form.value['valor'] = 0;
     }
 
@@ -137,6 +170,78 @@ export class DisponibilidadePage implements OnInit {
   }
 
 
+  onMapClick(e) {
+
+    if (this.newMarker == undefined) {
+      this.newMarker = marker([e.latlng.lat, e.latlng.lng], {
+        draggable: false
+      }).addTo(this.map);
+      this.latitude = e.latlng.lat;
+      this.longitude = e.latlng.lng;
+    } else {
+      console.log(this.newMarker);
+      this.map.removeLayer(this.newMarker);
+      this.newMarker = marker([e.latlng.lat, e.latlng.lng], {
+        draggable: false
+      }).addTo(this.map);
+      this.latitude = e.latlng.lat;
+      this.longitude = e.latlng.lng;
+    }
+
+
+  }
+  loadMap(lat, long) {
+    this.map = new Map("mapId").setView([lat, long], 15);
+    this.newMarker = marker([lat, long], {
+      draggable: false
+    }).addTo(this.map);
+    this.latitude = lat;
+    this.longitude = long;
+    tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {}).addTo(this.map);
+  }
+
+
+  async locatePosition() {
+
+    const loading = await this.loadingController.create({
+      cssClass: 'my-custom-class',
+      message: 'Buscando localização atual...',
+      duration: 3000
+    });
+    await loading.present();
+    this.map.locate({ setView: true }).on("locationfound", (e: any) => {
+      if (this.newMarker == undefined) {
+        this.newMarker = marker([e.latitude, e.longitude], {
+          draggable: false
+        }).addTo(this.map);
+        this.latitude = e.latitude;
+        this.longitude = e.longitude;
+      } else {
+        this.map.removeLayer(this.newMarker);
+        this.newMarker = marker([e.latitude, e.longitude], {
+          draggable: false
+        }).addTo(this.map);
+        this.latitude = e.latitude;
+        this.longitude = e.longitude;
+      }
+    });
+  }
+
+
+  enviarlocal(){
+
+    this.ipeteservices.enviarLoca(this.latitude,this.longitude)
+        .then((response) => {
+          //console.log(response);
+          console.log('Localização salva com sucesso!');
+          var mensagem = 'Localização salva com sucesso!';
+          this.alertaDados(mensagem);
+          this.getDisponibilidade();
+        })
+        .catch((erro) => {
+          console.error(erro);
+        });
+  }
 
 
 }

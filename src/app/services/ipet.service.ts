@@ -28,7 +28,7 @@ export class IpetService {
 
 
   inserirUsuario(dados: string) {
-    let url = 'https://gaosoft.com.br/apiMobile/welcome/inserir/' + dados['nome'] + '/' + dados['email'] + '/' + dados['senha'] + '/' + dados['numero'];
+    let url = 'https://gaosoft.com.br/apiMobile/welcome/inserir/';
 
     var header = {
       headers: new HttpHeaders()
@@ -36,27 +36,38 @@ export class IpetService {
     }
 
     const formData = new FormData();
-    formData.append('name', 'teste');
+    formData.append('nome', dados['nome']);
+    formData.append('email', dados['email']);
+    formData.append('senha', dados['senha']);
+    formData.append('numero', dados['numero']);
+  
+    return this.http.post(url, formData).toPromise();
+  }
+
+  enviarLoca(lat, long) {
+    let url = 'https://gaosoft.com.br/apiMobile/welcome/enviarlocal/';
+
+    var header = {
+      headers: new HttpHeaders()
+        .set('Content-type', `application/json`)
+    }
+
+    const formData = new FormData();
+    formData.append('lat', lat);
+    formData.append('long', long);
+    formData.append('id_usuario', sessionStorage.getItem('id_usuario'));
+
+
     console.log(formData);
     return this.http.post(url, formData).toPromise();
 
     //let param = {nome: dados};
     //return this.http.post(url, header).toPromise();
 
-
-
-    //let url = 'https://gaosoft.com.br/apiMobile/welcome/uploadteste' + formData;
-
-    //return this.http.ost()
-    //return this.http.post(`${this.urlChat}image`, formData).toPromise();
-
-
-
-
   }
 
   editarUsuario(dados: string) {
-    let url = 'https://gaosoft.com.br/apiMobile/welcome/editarUsuario/' + dados['nome'] + '/' + dados['email'] + '/' + dados['senha'] + '/' + dados['numero'] + '/' + sessionStorage.getItem('id_usuario');
+    let url = 'https://gaosoft.com.br/apiMobile/welcome/editarUsuario/';
 
     var header = {
       headers: new HttpHeaders()
@@ -64,8 +75,12 @@ export class IpetService {
     }
 
     const formData = new FormData();
-    formData.append('name', 'testando');
-    console.log(formData);
+    formData.append('nome', dados['nome']);
+    formData.append('email', dados['email']);
+    formData.append('senha', dados['senha']);
+    formData.append('numero', dados['numero']);
+    formData.append('id_usuario', sessionStorage.getItem('id_usuario'));
+    
     return this.http.post(url, formData).toPromise();
 
     //let param = {nome: dados};
@@ -74,21 +89,7 @@ export class IpetService {
   }
 
   buscarUsuario(id: string) {
-    let url = 'https://gaosoft.com.br/apiMobile/welcome/buscarUsuario/' + id;
-
-    var header = {
-      headers: new HttpHeaders()
-        .set('Content-type', `application/json`)
-    }
-
-    //let param = {nome: dados};
-
-    return this.http.get(url).toPromise();
-
-  }
-
-  inserirDisponibilidade(dados: string) {
-    let url = 'https://gaosoft.com.br/apiMobile/welcome/inserirDisponibilidade/' + dados['cidade'] + '/' + dados['bairro'] + '/' + dados['numero'] + '/' + sessionStorage.getItem('id_usuario') + '/' + dados['opcao'] + '/' + dados['valor'] + '/' + 1;
+    let url = 'https://gaosoft.com.br/apiMobile/welcome/buscarUsuario/';
 
     var header = {
       headers: new HttpHeaders()
@@ -96,7 +97,50 @@ export class IpetService {
     }
 
     const formData = new FormData();
-    formData.append('name', 'testando');
+    formData.append('id', id);
+    //let param = {nome: dados};
+
+    return this.http.post(url, formData).toPromise();
+
+  }
+
+  buscarPorTipos(tipo: string) {
+    let url = 'https://gaosoft.com.br/apiMobile/welcome/buscarLocal/';
+
+    var header = {
+      headers: new HttpHeaders()
+        .set('Content-type', `application/json`)
+    }
+
+    const formData = new FormData();
+    formData.append('tipo', tipo);
+    formData.append('id_usuario', sessionStorage.getItem('id_usuario'));
+    //let param = {nome: dados};
+
+    return this.http.post(url, formData).toPromise();
+
+  }
+
+  inserirDisponibilidade(dados: string) {
+    let url = 'https://gaosoft.com.br/apiMobile/welcome/inserirDisponibilidade/';
+
+    var header = {
+      headers: new HttpHeaders()
+        .set('Content-type', `application/json`)
+    }
+
+    const formData = new FormData();
+    formData.append('cidade', dados['cidade']);
+    formData.append('bairro', dados['bairro']);
+    formData.append('numero', dados['numero']);
+    formData.append('id_usuario', sessionStorage.getItem('id_usuario'));
+    formData.append('opcao', dados['opcao']);
+    formData.append('valor', dados['valor']);
+    formData.append('cadastrado', '1');
+
+    
+
+
     console.log(formData);
     return this.http.post(url, formData).toPromise();
 
@@ -106,15 +150,21 @@ export class IpetService {
   }
 
   editarDisponibilidade(dados: string) {
-    let url = 'https://gaosoft.com.br/apiMobile/welcome/editarDisponibilidade/' + dados['cidade'] + '/' + dados['bairro'] + '/' + dados['numero'] + '/' + sessionStorage.getItem('id_usuario') + '/' + dados['opcao'] + '/' + dados['valor'] + '/' + 1;
+    console.log(dados);
+    let url = 'https://gaosoft.com.br/apiMobile/welcome/editarDisponibilidade/';
 
     var header = {
       headers: new HttpHeaders()
         .set('Content-type', `application/json`)
     }
     const formData = new FormData();
-    formData.append('name', 'testando');
-    console.log(formData);
+    formData.append('cidade', dados['cidade']);
+    formData.append('bairro', dados['bairro']);
+    formData.append('numero', dados['numero']);
+    formData.append('id_usuario', sessionStorage.getItem('id_usuario'));
+    formData.append('opcao', dados['opcao']);
+    formData.append('valor', dados['valor']);
+    formData.append('cadastrado', '1');
     return this.http.post(url, formData).toPromise();
 
     //let param = {nome: dados};
@@ -123,16 +173,17 @@ export class IpetService {
   }
 
   buscarDisponibilidade(id: string) {
-    let url = 'https://gaosoft.com.br/apiMobile/welcome/buscarDisponibilidade/' + id;
+    let url = 'https://gaosoft.com.br/apiMobile/welcome/buscarDisponibilidade/';
 
     var header = {
       headers: new HttpHeaders()
         .set('Content-type', `application/json`)
     }
-
+    const formData = new FormData();
+    formData.append('id', id);
     //let param = {nome: dados};
 
-    return this.http.get(url).toPromise();
+    return this.http.post(url, formData).toPromise();
 
   }
 
@@ -140,64 +191,7 @@ export class IpetService {
     if (dados['cidade'] == '') {
       dados['cidade'] = null;
     }
-    let url = 'https://gaosoft.com.br/apiMobile/welcome/buscarDisponibilidadePesquisa/' + dados['cidade'] + '/' + dados['disponibilidade'];
-
-    var header = {
-      headers: new HttpHeaders()
-        .set('Content-type', `application/json`)
-    }
-
-    //let param = {nome: dados};
-
-    return this.http.get(url).toPromise();
-
-  }
-
-
-  confirmarLogin(dados: string) {
-    let url = 'https://gaosoft.com.br/apiMobile/welcome/buscar/' + dados['email'] + '/' + dados['senha'];
-
-    var header = {
-      headers: new HttpHeaders()
-        .set('Content-type', `application/json`)
-    }
-
-    //let param = {nome: dados};
-    return this.http.get(url).toPromise();
-    //return this.http.get(url, header).toPromise();
-
-  }
-
-  verificarEmail(dados: string) {
-    let url = 'https://gaosoft.com.br/apiMobile/welcome/verificar/' + dados['email'];
-
-    var header = {
-      headers: new HttpHeaders()
-        .set('Content-type', `application/json`)
-    }
-
-    //let param = {nome: dados};
-
-    return this.http.get(url).toPromise();
-
-  }
-
-  buscarMensagens() {
-    let url = 'https://gaosoft.com.br/apiMobile/welcome/ListarConversa/' + sessionStorage.getItem('id_usuario') + '/' + sessionStorage.getItem('id_usuario_enviar');
-
-    var header = {
-      headers: new HttpHeaders()
-        .set('Content-type', `application/json`)
-    }
-
-    //let param = {nome: dados};
-
-    return this.http.get(url).toPromise();
-
-  }
-
-  enviarMensagens(mensagem: string) {
-    let url = 'https://gaosoft.com.br/apiMobile/welcome/EnviarConversa/' + sessionStorage.getItem('id_usuario') + '/' + sessionStorage.getItem('id_usuario_enviar') + '/' + mensagem;
+    let url = 'https://gaosoft.com.br/apiMobile/welcome/buscarDisponibilidadePesquisa/';
 
     var header = {
       headers: new HttpHeaders()
@@ -205,8 +199,79 @@ export class IpetService {
     }
 
     const formData = new FormData();
-    formData.append('name', 'testando');
-    console.log(formData);
+    formData.append('cidade', dados['cidade']);
+    formData.append('disponibilidade', dados['disponibilidade']);
+
+    //let param = {nome: dados};
+
+    return this.http.post(url, formData).toPromise();
+
+  }
+
+
+  confirmarLogin(dados: string) {
+    let url = 'https://gaosoft.com.br/apiMobile/welcome/buscar/';
+
+    var header = {
+      headers: new HttpHeaders()
+        .set('Content-type', `application/json`)
+    }
+
+    const formData = new FormData();
+    formData.append('email', dados['email']);
+    formData.append('senha', dados['senha']);
+
+    //let param = {nome: dados};
+    return this.http.post(url, formData).toPromise();
+    //return this.http.get(url, header).toPromise();
+
+  }
+
+  verificarEmail(dados: string) {
+    let url = 'https://gaosoft.com.br/apiMobile/welcome/verificar/';
+
+    var header = {
+      headers: new HttpHeaders()
+        .set('Content-type', `application/json`)
+    }
+    const formData = new FormData();
+    formData.append('email', dados['email']);
+    //let param = {nome: dados};
+
+    return this.http.post(url, formData).toPromise();
+
+  }
+
+  buscarMensagens() {
+    let url = 'https://gaosoft.com.br/apiMobile/welcome/ListarConversa/';
+
+    var header = {
+      headers: new HttpHeaders()
+        .set('Content-type', `application/json`)
+    }
+
+    const formData = new FormData();
+    formData.append('id_usuario', sessionStorage.getItem('id_usuario'));
+    formData.append('outro_id', sessionStorage.getItem('id_usuario_enviar'));
+
+    //let param = {nome: dados};
+
+    return this.http.post(url, formData).toPromise();
+
+  }
+
+  enviarMensagens(mensagem: string) {
+    let url = 'https://gaosoft.com.br/apiMobile/welcome/EnviarConversa/';
+
+    var header = {
+      headers: new HttpHeaders()
+        .set('Content-type', `application/json`)
+    }
+
+    const formData = new FormData();
+    formData.append('id_usuario', sessionStorage.getItem('id_usuario'));
+    formData.append('id_usuario_enviar', sessionStorage.getItem('id_usuario_enviar'));
+    formData.append('mensagem', mensagem);
     return this.http.post(url, formData).toPromise();
     //let param = {nome: dados};
 
@@ -215,7 +280,7 @@ export class IpetService {
   }
 
   deletarMensagemDuplicada(id: string) {
-    let url = 'https://gaosoft.com.br/apiMobile/welcome/deletarMensagem/' + id;
+    let url = 'https://gaosoft.com.br/apiMobile/welcome/deletarMensagem/';
 
     var header = {
       headers: new HttpHeaders()
@@ -225,8 +290,7 @@ export class IpetService {
     //let param = {nome: dados};
 
     const formData = new FormData();
-    formData.append('name', 'testando');
-    console.log(formData);
+    formData.append('id', id);
     return this.http.post(url, formData).toPromise();
 
     //return this.http.delete(url).toPromise();
@@ -241,14 +305,17 @@ export class IpetService {
         .set('Content-type', `application/json`)
     }
 
+    const formData = new FormData();
+    formData.append('id', sessionStorage.getItem('id_usuario'));
+
     //let param = {nome: dados};
 
-    return this.http.get(url).toPromise();
+    return this.http.post(url, formData).toPromise();
 
   }
 
-  editarEstrelas(estrelas: number) {
-    let url = 'https://gaosoft.com.br/apiMobile/welcome/editarAvaliacao/' + estrelas + '/' + sessionStorage.getItem('id_estrelas_update');
+  editarEstrelas(estrelas: string) {
+    let url = 'https://gaosoft.com.br/apiMobile/welcome/editarAvaliacao/';
 
     var header = {
       headers: new HttpHeaders()
@@ -257,7 +324,8 @@ export class IpetService {
 
     //let param = {nome: dados};
     const formData = new FormData();
-    formData.append('name', 'testando');
+    formData.append('estrelas', estrelas);
+    formData.append('id_estrelas_update', sessionStorage.getItem('id_estrelas_update'));
     console.log(formData);
     return this.http.post(url, formData).toPromise();
 
@@ -265,7 +333,7 @@ export class IpetService {
 
   }
 
-  inserirEstrelas(estrelas: number) {
+  inserirEstrelas(estrelas: string) {
     let url = 'https://gaosoft.com.br/apiMobile/welcome/inserirAvaliacao/' + estrelas + '/' + sessionStorage.getItem('id_usuario') + '/' + sessionStorage.getItem('id_recebeu_estrelas');
 
     var header = {
@@ -276,7 +344,11 @@ export class IpetService {
     //let param = {nome: dados};
 
     const formData = new FormData();
-    formData.append('name', 'testando');
+    formData.append('estrelas', estrelas);
+    formData.append('id_enviou', sessionStorage.getItem('id_usuario'));
+    formData.append('id_recebeu', sessionStorage.getItem('id_recebeu_estrelas'));
+   
+    
     console.log(formData);
     return this.http.post(url, formData).toPromise();
 

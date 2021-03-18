@@ -33,15 +33,15 @@ export class CadastroPage implements OnInit {
     } else if (senha.length < 5) {
       mensagem = 'A senha deve ter no minimo 6 caracteres!';
       enviar = false;
-    } else if (numero.length <= 8) {
+    } else if (numero.length < 14) {
       mensagem = 'Preencha corretamente o número!';
       enviar = false;
     }
-
     if (enviar == false) {
       this.alertaDados(mensagem);
       return false;
     } else {
+      form.value['numero'] = numero.replace('(', '').replace(')', '').replace('-', '').replace(' ', '');
       this.add(form.value);
       return true;
     }

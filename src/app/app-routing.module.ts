@@ -39,6 +39,10 @@ const routes: Routes = [
     path: 'contatos',
     loadChildren: () => import('./contatos/contatos.module').then( m => m.ContatosPageModule)
   },
+  {
+    path: 'map',
+    loadChildren: () => import('./map/map.module').then( m => m.MapPageModule)
+  },
 ];
 
 @NgModule({

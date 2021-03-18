@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons>
+      <ion-menu-button menu="menu-inicio"></ion-menu-button>
+      <ion-title>Mapa</ion-title>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item>
+    <ion-label>Buscar por:</ion-label>
+    <ion-select name="opcao" (ionChange)="buscarPorTipos($event);" okText="Selecionar" cancelTex="Cancelar" ngModel
+      required>
+      <ion-select-option>HotelZinho</ion-select-option>
+      <ion-select-option>Passear</ion-select-option>
+      <ion-select-option>PetShop</ion-select-option>
+      <ion-select-option>Veterinario</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+
+
+  <div id="mapId2" style="height:625px"></div>
+
+</ion-content>

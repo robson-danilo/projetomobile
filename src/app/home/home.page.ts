@@ -2,6 +2,8 @@ import { Router } from '@angular/router';
 import { IpetService} from './../services/ipet.service';
 import { Component, OnInit } from '@angular/core';
 import { AlertController, ToastController } from '@ionic/angular';
+import { Storage } from '@ionic/storage';
+
 
 @Component({
   selector: 'app-home',
@@ -10,17 +12,25 @@ import { AlertController, ToastController } from '@ionic/angular';
 })
 export class HomePage implements OnInit{
 
-  
+  email;
 
   constructor(private alertCtrl: AlertController,
     private toastCtrl: ToastController,
     private ipeteservices: IpetService,
-    private router: Router) { }
+    private router: Router,
+    private sto: Storage
+    ) { }
 
   ngOnInit(){
     this.ipeteservices.testando().subscribe(response =>{
       console.log(response);
     })
+
+    this.sto.get('email').then((val) => {
+     if (val != null){
+       this.email = val;
+     }
+    });
   }
 
 
@@ -46,7 +56,7 @@ export class HomePage implements OnInit{
       this.alertaDados(mensagem);
       return false;
     } else {
-
+      this.sto.set('email', form.value['email']);
       this.buscar(form.value);
       console.log('Login realizado com sucesso!');
       return true;

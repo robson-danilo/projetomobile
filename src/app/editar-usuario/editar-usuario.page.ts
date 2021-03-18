@@ -80,10 +80,19 @@ export class EditarUsuarioPage implements OnInit {
     this.ipeteservices.editarUsuario(form.value)
       .then((response) => {
         //console.log(response);
-        console.log('editado com sucesso!');
-        var mensagem = 'Editado com sucesso!';
+        if (response == true){
+          console.log('editado com sucesso!');
+          var mensagem = 'Editado com sucesso!';
+          this.alertaDados(mensagem);
+          this.getUsuario();
+        }else {
+          console.log('Email já cadastrado!');
+        var mensagem = 'Este email já está cadastrado!';
         this.alertaDados(mensagem);
         this.getUsuario();
+        }
+
+        
 
       })
       .catch((erro) => {
