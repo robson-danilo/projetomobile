@@ -35,4 +35,11 @@
         </ion-col>
       </ion-row>
   </form>
+
+  <ion-button  size="large" (click)="video()" expand="block">CapVideo</ion-button>
+
+   <ion-item>
+    <ion-label id="profile_image" color="primary" stacked>Selecione o arquivo</ion-label>
+    <ion-input type="file" accept="*" value="testando" (change)="changeListener($event)"></ion-input>
+  </ion-item>
 </ion-footer>

@@ -1,8 +1,12 @@
 import { Router } from '@angular/router';
-import { IpetService} from './../services/ipet.service';
+import { IpetService } from './../services/ipet.service';
 import { Component, OnInit } from '@angular/core';
 import { AlertController, ToastController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
+
+import { MediaCapture, MediaFile, CaptureError, CaptureImageOptions, CaptureVideoOptions } from '@ionic-native/media-capture/ngx';
+
+import { File } from '@ionic-native/file/ngx';
 
 
 @Component({
@@ -10,7 +14,7 @@ import { Storage } from '@ionic/storage';
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage implements OnInit{
+export class HomePage implements OnInit {
 
   email;
 
@@ -18,18 +22,20 @@ export class HomePage implements OnInit{
     private toastCtrl: ToastController,
     private ipeteservices: IpetService,
     private router: Router,
-    private sto: Storage
-    ) { }
+    private sto: Storage,
+    private mediaCapture: MediaCapture,
+    private file: File
+  ) { }
 
-  ngOnInit(){
-    this.ipeteservices.testando().subscribe(response =>{
+  ngOnInit() {
+    this.ipeteservices.testando().subscribe(response => {
       console.log(response);
     })
 
     this.sto.get('email').then((val) => {
-     if (val != null){
-       this.email = val;
-     }
+      if (val != null) {
+        this.email = val;
+      }
     });
   }
 
@@ -104,6 +110,89 @@ export class HomePage implements OnInit{
     this.router.navigateByUrl('/inicio');
     var mensagem = 'Logado com sucesso!';
     this.alertaDados(mensagem);
+  }
+
+  videoPath;
+  videoFileUpload;
+
+  video() {
+    let options: CaptureVideoOptions = { limit: 1 }
+    this.mediaCapture.captureVideo(options)
+      .then((videoData: MediaFile[]) => {
+        var i, path, len;
+        for (i = 0, len = videoData.length; i < len; i += 1) {
+          path = videoData[i].fullPath;
+        }
+        this.videoPath = path;
+
+        alert(path);
+
+
+        try {
+          let n = path.lastIndexOf("/");
+          let x = path.lastIndexOf("g");
+          let nameFile = path.substring(n + 1, x + 1);
+          let directory = path.substring(0, n);
+
+
+          alert(n);
+          alert(x);
+          alert(nameFile);
+          alert(directory);
+
+
+          alert("nombre archivo :" + nameFile + " *directory: " + directory.toString() + " *allPath: " + path);
+          //this.file.readAsArrayBuffer(directory.toString(), nameFile).then((res) => {
+          this.file.readAsArrayBuffer('file:///storage/emulated/0/DCIM/Camera/', '20210321_170304.mp4').then((res) => {
+            try {
+
+              let blob = new Blob([res], {type: "video/mp4"});
+              alert("gerou blobl");
+              alert(blob);
+
+              this.ipeteservices.uploadVideo(blob).then((response) => {
+                //console.log(response);
+                alert(response);
+                console.log('Foto inserida com sucesso');
+                var mensagem = 'Foto inserida com sucesso';
+                //this.alertaDados(mensagem);
+                //this.getUsuario();
+          
+              })
+                .catch((erro) => {
+                  console.error(erro);
+                });
+
+
+
+            } catch (z) {
+              alert('error al crear blob' + z);
+            }
+          }).catch(err => alert('error al leer el archivo ' + JSON.stringify(err)));
+        } catch (z) {
+          alert(z);
+        }
+
+      })
+      .catch((err: CaptureError) => err)
+  }
+  changeListener($event): void {
+    this.file = $event.target.files[0];
+    console.log(this.file);
+
+        this.ipeteservices.uploadVideo(this.file).then((response) => {
+          //console.log(response);
+          alert(response);
+          console.log('Foto inserida com sucesso');
+          var mensagem = 'Foto inserida com sucesso';
+          //this.alertaDados(mensagem);
+          //this.getUsuario();
+    
+        })
+          .catch((erro) => {
+            console.error(erro);
+          });
+
   }
 
 }

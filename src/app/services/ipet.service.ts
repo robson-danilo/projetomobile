@@ -393,5 +393,19 @@ export class IpetService {
 
   }
 
+  uploadVideo(blobData) {
+
+    let urlChat = 'https://gaosoft.com.br/apiMobile/welcome/uploadvideo/';
+    const formData = new FormData();
+    formData.append('file', blobData);
+    //let url = 'https://gaosoft.com.br/apiMobile/welcome/uploadteste' + formData;
+    console.log(blobData);
+    //return this.http.ost()
+    return this.http.post(urlChat, formData).toPromise();
+
+  }
+
+  
+
 
 }

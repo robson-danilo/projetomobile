@@ -18,13 +18,17 @@ import {NgxMaskIonicModule} from 'ngx-mask-ionic';
 
 import { IonicStorageModule } from '@ionic/storage';
 
+import { MediaCapture} from '@ionic-native/media-capture/ngx';
+
+import { File } from '@ionic-native/file/ngx';
 
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule, NgxMaskIonicModule.forRoot(), IonicStorageModule.forRoot()],
-  providers: [
+  providers: [MediaCapture,
+    File,
     StatusBar,
     SplashScreen,
     IpetService,
